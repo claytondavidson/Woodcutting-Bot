@@ -1,9 +1,9 @@
 import {
-  moveMouse,
   mouseClick,
   getPixelColor,
   screen,
   keyToggle,
+  moveMouseSmooth,
 } from "robotjs";
 
 const main = () => {
@@ -18,7 +18,7 @@ const main = () => {
       continue;
     }
 
-    moveMouse(tree.x, tree.y);
+    moveMouseSmooth(tree.x, tree.y);
     mouseClick();
     sleep(3000);
 
@@ -27,9 +27,9 @@ const main = () => {
 };
 
 const dropLogs = () => {
-  const inventory_x = 1862;
-  const inventory_y = 836;
-  const inventory_log_color = "6f512c";
+  const inventory_x = 1736;
+  const inventory_y = 806;
+  const inventory_log_color = "473e15";
 
   let pixel_color = getPixelColor(inventory_x, inventory_y);
 
@@ -41,11 +41,11 @@ const dropLogs = () => {
     wait_cycles++;
   }
 
-  if (pixel_color == inventory_log_color) {
-    moveMouse(inventory_x, inventory_y);
+  if (pixel_color === inventory_log_color) {
+    moveMouseSmooth(inventory_x, inventory_y);
     mouseClick("right");
     sleep(300);
-    moveMouse(inventory_x, inventory_y + 40);
+    moveMouseSmooth(inventory_x, inventory_y + 40);
     mouseClick();
     sleep(1000);
   }
@@ -58,12 +58,15 @@ const findTree = () => {
     height = 700;
   const img = screen.capture(x, y, width, height);
   const tree_colors = [
-    "71532d",
-    "6c502b",
-    "261c05",
-    "3d2d18",
-    "171007",
-    "3F2F19",
+    "16150b",
+    "433d22",
+    "605830",
+    "15130a",
+    "16150a",
+    "101008",
+    "121209",
+    "494326",
+    "564e2c",
   ];
 
   for (let i = 0; i < 500; i++) {
@@ -109,14 +112,14 @@ const rotateCamera = () => {
 };
 
 const confirmTree = (screen_x: number, screen_y: number) => {
-  moveMouse(screen_x, screen_y);
+  moveMouseSmooth(screen_x, screen_y);
   sleep(300);
 
-  const check_x = 156;
-  const check_y = 66;
+  const check_x = 158;
+  const check_y = 71;
   const pixel_color = getPixelColor(check_x, check_y);
 
-  return pixel_color == "00ffff";
+  return pixel_color === "00ffff";
 };
 
 const sleep = (ms: number) =>
